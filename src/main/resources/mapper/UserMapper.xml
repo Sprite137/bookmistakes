@@ -15,6 +15,10 @@
         <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
         <result property="isDel" column="is_del" jdbcType="TINYINT"/>
+        <result property="avatarUrl" column="avatar_url" jdbcType="VARCHAR"/>
+        <result property="postsCount" column="posts_count" jdbcType="INTEGER"/>
+        <result property="followersCount" column="followers_count" jdbcType="INTEGER"/>
+        <result property="followingCount" column="following_count" jdbcType="INTEGER"/>
     </resultMap>
 
     <insert id="insertUser">

@@ -31,4 +31,12 @@ public class UserPojo implements Serializable {
 
     private String updateBy;
 
+    private String avatarUrl;
+
+    private int postsCount;
+
+    private int followersCount;
+
+    private int followingCount;
+
 }

@@ -1,11 +1,9 @@
-package com.example.bookmistakes.entity.vo;
+package com.example.bookmistakes.entity.dto;
 
 import lombok.Data;
 
-import java.util.Date;
-
 @Data
-public class RegisterUserVo {
+public class RegisterUserDto {
 
     private String userName;
 

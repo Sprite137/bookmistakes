@@ -1,10 +1,11 @@
 package com.example.bookmistakes.service.impl;
 
+import com.example.bookmistakes.entity.dto.LoginUserDto;
+import com.example.bookmistakes.entity.dto.RegisterUserDto;
 import com.example.bookmistakes.entity.errorEntiy.HttpEnum;
 import com.example.bookmistakes.entity.errorEntiy.ResponseResult;
 import com.example.bookmistakes.entity.pojo.UserPojo;
-import com.example.bookmistakes.entity.vo.LoginUserVo;
-import com.example.bookmistakes.entity.vo.RegisterUserVo;
+import com.example.bookmistakes.entity.vo.UserDetailVo;
 import com.example.bookmistakes.event.LoginEvent;
 import com.example.bookmistakes.mapper.UserMapper;
 import com.example.bookmistakes.service.UserService;
@@ -29,14 +30,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private ApplicationContext applicationContext;
 
-    public ResponseResult<Object> login(LoginUserVo loginUserVo){
-//        LoginEvent loginEvent = new LoginEvent(applicationContext,loginUserVo.getUserName());
-//        applicationContext.publishEvent(loginEvent);
-        UserPojo user = userMapper.getUserByUserName(loginUserVo.getUserName());
+    public ResponseResult<Object> login(LoginUserDto loginUserDto){
+        UserPojo user = userMapper.getUserByUserName(loginUserDto.getUserName());
         if(user == null){
             return ResponseResult.ErrorResult(HttpEnum.LOGINERROR);
         }
-        if(BCrypt.checkpw(loginUserVo.getPassword(),user.getPassword())){
+        if(BCrypt.checkpw(loginUserDto.getPassword(),user.getPassword())){
 
             return ResponseResult.SuccessResult();
         }
@@ -46,9 +45,9 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    public ResponseResult<Object> register(RegisterUserVo registerUserVo){
+    public ResponseResult<Object> register(RegisterUserDto registerUserDto){
         UserPojo registerUser = new UserPojo();
-        BeanUtils.copyProperties(registerUserVo,registerUser);
+        BeanUtils.copyProperties(registerUserDto,registerUser);
         registerUser.setUserId(UUIDUtil.get8UUID());
         registerUser.setPassword(BcryptUtil.encoding(registerUser.getPassword()));
         registerUser.setCreateTime(new Date());
@@ -58,5 +57,16 @@ public class UserServiceImpl implements UserService {
         registerUser.setIsDel(0);
         userMapper.insertUser(registerUser);
         return ResponseResult.SuccessResult();
+    }
+
+    @Override
+    public ResponseResult<Object> getUserDetail(String userName) {
+        UserDetailVo userDetailVo = new UserDetailVo();
+        userDetailVo.setUserName(userName);
+        // 获取关注与粉丝数量
+        UserPojo userPojo = userMapper.getUserByUserName(userName);
+        BeanUtils.copyProperties(userPojo,userDetailVo);
+
+        return  ResponseResult.SuccessResult(userDetailVo);
     }
 }

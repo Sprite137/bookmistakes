@@ -2,6 +2,7 @@ package com.example.bookmistakes.entity.pojo;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
@@ -27,6 +28,16 @@ public class BookPojo {
     private String createBy;
 
     private String updateBy;
+
+    private int viewCount;
+
+    private String publishingTime;
+
+    private String publishingHouse;
+
+    private String imgSrc;
+
+    private String intro;
 
 
 //    id int auto_increment primary key,

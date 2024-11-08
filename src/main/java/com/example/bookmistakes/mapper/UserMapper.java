@@ -1,7 +1,6 @@
 package com.example.bookmistakes.mapper;
 
 import com.example.bookmistakes.entity.pojo.UserPojo;
-import com.example.bookmistakes.entity.vo.RegisterUserVo;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

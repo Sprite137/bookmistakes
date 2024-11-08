@@ -14,10 +14,24 @@
         <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
         <result property="isDel" column="is_del" jdbcType="TINYINT"/>
+        <result property="viewCount" column="view_count" jdbcType="BIGINT"/>
+        <result property="imgSrc" column="img_src" jdbcType="VARCHAR"/>
+        <result property="publishingTime" column="publishing_time" jdbcType="VARCHAR"/>
+        <result property="publishingHouse" column="publishing_House" jdbcType="VARCHAR"/>
+        <result property="rate" column="rate" jdbcType="FLOAT"/>
+        <result property="intro" column="intro" jdbcType="VARCHAR"/>
     </resultMap>
 
 
     <select id="getBookByTitle" resultMap="BaseResultMap">
         select * from book where title like #{title};
+    </select>
+
+    <select id="getHotBooks" resultMap="BaseResultMap">
+        select * from book order by view_count limit 8;
+    </select>
+
+    <select id="findBookByBookId" resultMap="BaseResultMap">
+        select * from book where book_id=#{bookId};
     </select>
 </mapper>

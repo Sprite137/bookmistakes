@@ -1,9 +1,9 @@
-package com.example.bookmistakes.entity.vo;
+package com.example.bookmistakes.entity.dto;
 
 import lombok.Data;
 
 @Data
-public class LoginUserVo {
+public class LoginUserDto {
     private String userName;
 
     private String password;
